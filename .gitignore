@@ -29,4 +29,7 @@
 # Executables
 *.exe
 *.out
-*.app
+i.app
+
+# Build directory
+build/
