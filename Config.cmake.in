@@ -1,0 +1,7 @@
+@PACKAGE_INIT@
+
+set(TARGET lfmq)
+
+include(${CMAKE_CURRENT_LIST_DIR}/${TARGET}Targets.cmake)
+
+check_required_components(${TARGET})
