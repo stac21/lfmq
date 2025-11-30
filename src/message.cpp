@@ -12,15 +12,15 @@ void MessageMetadata::set_type(const MessageType type) noexcept {
  * End MessageMetadata class definitions
  */
 
- /*
-  * Start Message class definitions
-  */
+/*
+ * Start Message class definitions
+ */
 bool Message::set_payload(const void* const data, const size_t size) {
 	if (data == nullptr || size > MAX_MESSAGE_SIZE) {
 		return false;
 	}
 
-	memcpy(this->payload, data, size);
+	memcpy(&this->payload[0], data, size);
 	this->payload_size = size;
 
 	return true;

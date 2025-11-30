@@ -27,11 +27,11 @@ private:
 
 public:
 	constexpr MessageMetadata() noexcept :
-		m_type(MessageType::UNKNOWN)
+			m_type(MessageType::UNKNOWN)
 	{ }
 
 	constexpr MessageMetadata(const MessageType type) noexcept :
-		m_type(type)
+			m_type(type)
 	{ }
 
 	constexpr MessageType get_type() const noexcept {
@@ -61,17 +61,16 @@ private:
 
 public:
 	constexpr Message() :
-		metadata(),
-		payload{ 0 },
-		payload_size(0)
+			metadata(),
+			payload{ 0 },
+			payload_size(0)
 	{ }
 
-	template<typename _T> requires (sizeof(_T) <= MAX_MESSAGE_SIZE)
+	template<typename _T> requires (sizeof(_T) <= Message::MAX_MESSAGE_SIZE)
 	Message(const MessageMetadata& metadata, _T&& data) :
-		metadata(metadata),
-		payload(),
-		payload_size() {
-
+			metadata(metadata),
+			payload(),
+			payload_size() {
 		/*
 		 * The size of data is already checked at compile-time, so the only
 		 * way this can fail is if data == nullptr
@@ -91,7 +90,7 @@ public:
 		return this->metadata;
 	}
 	constexpr const char* get_payload() const noexcept {
-		return this->payload;
+		return &this->payload[0];
 	}
 
 	template<typename _T> requires (sizeof(_T) <= MAX_MESSAGE_SIZE)
@@ -100,7 +99,7 @@ public:
 		* in the case of T deducing to a pointer type, this will treat
 		* the message payload as a T**
 		*/
-		return *reinterpret_cast<const _T*>(this->payload);
+		return *reinterpret_cast<const _T*>(&this->payload[0]);
 	}
 
 	constexpr size_t get_payload_size() const noexcept {
